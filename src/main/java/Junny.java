@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Junny {
-    static Task[] tasks = new Task[100];
+    // make it global, so all mthds can access and change
+    static ArrayList<Task> tasks = new ArrayList<>();
     static int count = 0;
 
     // exceptions to be handled:
@@ -32,22 +34,24 @@ public class Junny {
                 break;
             } else if (command.equals("list")) {
                 printAllTasks(tasks, count);
-            } else if (command.equals("mark") || command.equals("unmark")) {
+            } else if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
                 try {
                     // VERY IMPORTANT: mark 2 extract 2, but it actually mark tasks[1]!!!
                     int index = Integer.parseInt(inputByParts[1]) - 1;  // may throw NumberFormatException
                     // throw exception 3: may throw ArrayIndexOutOFBoundsException
                     if (command.equals("mark")) {
-                        markDone(tasks[index]);
+                        markDone(tasks.get(index));
                     } else if (command.equals("unmark")) {
-                        if (tasks[index].isDone) markUndone(tasks[index]);
+                        if (tasks.get(index).isDone) markUndone(tasks.get(index));
                         // throw & handle exception 4
                         else printError("The task is not done yet, and you do not need to undo it!");
+                    } else if (command.equals("delete")) {
+                        deleteTask(tasks.get(index));
                     }
                 } catch (NumberFormatException e) {
                     // handle exception 3
                     printError("Please enter a valid number for " + command + ".");
-                } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+                } catch (IndexOutOfBoundsException | NullPointerException e) {
                     // handle exception 3
                     printError("The task number you give does not exist. Please check again!");
                 }
@@ -104,11 +108,11 @@ public class Junny {
         System.out.println("____________________________________________________________");
     }
 
-    public static void printAllTasks(Task[] tasks, int count) {
+    public static void printAllTasks(ArrayList<Task> tasks, int count) {
         printLine();
         System.out.println("Here are the tasks in your list: ");
         for (int i = 0; i < count; i++) {
-            System.out.println(tasks[i].toString());
+            System.out.println(tasks.get(i).toString());
         }
         printLine();
     }
@@ -135,11 +139,21 @@ public class Junny {
     }
 
     public static void addTask(Task task) {
-        tasks[count] = task;
+        tasks.add(task);
         count++;
         printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
+        System.out.printf("Now you have %d tasks in the list.\n", count);
+        printLine();
+    }
+
+    public static void deleteTask(Task task) {
+        tasks.remove(task);
+        printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task.toString());
+        count--;
         System.out.printf("Now you have %d tasks in the list.\n", count);
         printLine();
     }
