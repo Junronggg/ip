@@ -28,24 +28,34 @@ public class Junny {
             // handle the input
             // split to "ddl" and "read book \by Sunday" OR "mark" and "2"
             String[] inputByParts = userInput.split(" ", 2);
-            String command = inputByParts[0];
-            if (command.equals("bye")) {
+            String commandWord = inputByParts[0].toUpperCase();
+            CommandTypes command;
+
+            try {
+                command = CommandTypes.valueOf(commandWord);
+            } catch (IllegalArgumentException e) {
+                // handle exception 2
+                printError("I'm sorry, but I don't know what that means :(");
+                continue;
+            }
+
+            if (command == CommandTypes.BYE) {
                 printBye();
                 break;
-            } else if (command.equals("list")) {
+            } else if (command == CommandTypes.LIST) {
                 printAllTasks(tasks, count);
-            } else if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
+            } else if (command == CommandTypes.MARK || command == CommandTypes.UNMARK || command == CommandTypes.DELETE) {
                 try {
                     // VERY IMPORTANT: mark 2 extract 2, but it actually mark tasks[1]!!!
                     int index = Integer.parseInt(inputByParts[1]) - 1;  // may throw NumberFormatException
                     // throw exception 3: may throw ArrayIndexOutOFBoundsException
-                    if (command.equals("mark")) {
+                    if (command == CommandTypes.MARK) {
                         markDone(tasks.get(index));
-                    } else if (command.equals("unmark")) {
+                    } else if (command == CommandTypes.UNMARK) {
                         if (tasks.get(index).isDone) markUndone(tasks.get(index));
                         // throw & handle exception 4
                         else printError("The task is not done yet, and you do not need to undo it!");
-                    } else if (command.equals("delete")) {
+                    } else if (command == CommandTypes.DELETE) {
                         deleteTask(tasks.get(index));
                     }
                 } catch (NumberFormatException e) {
@@ -56,11 +66,11 @@ public class Junny {
                     printError("The task number you give does not exist. Please check again!");
                 }
             }
-            else if (command.equals("todo") || command.equals("deadline") || command.equals("event")){
+            else if (command == CommandTypes.DEADLINE || command == CommandTypes.TODO || command == CommandTypes.EVENT){
                 // if is todo, deadline, event: handle input first
                 try{
                     String details = inputByParts[1];
-                    if (inputByParts[0].equals("deadline")) {
+                    if (command == CommandTypes.DEADLINE) {
                        // split to "read book" & "Sunday"
                         String[] parts = details.split("/by", 2);
                         // throw exception 5
@@ -69,7 +79,7 @@ public class Junny {
                         String by = parts[1].trim();    // "Sunday
                         Deadline ddl = new Deadline(description, by);
                         addTask(ddl);
-                    } else if (inputByParts[0].equals("event")) {
+                    } else if (command == CommandTypes.EVENT) {
                         // split to "read book" & "/from xxx" (split on from)
                         String[] parts1 = details.split("/from", 2);
                         // throw exception 6
