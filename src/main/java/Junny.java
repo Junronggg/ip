@@ -1,18 +1,23 @@
 import java.util.Scanner;
 
 public class Junny {
+    static Task[] tasks = new Task[100];
+    static int count = 0;
+
     public static void main(String[] args) {
-        Task[] tasks = new Task[100];
-        int count = 0;
         Scanner scanner = new Scanner(System.in);
         printLine();
         System.out.println(" Hello! I'm Junny");
         System.out.println(" What can I do for you?");
         printLine();
 
+        // all inputs: todo, deadline, event, list, mark, unmark
         while (true) {
             String userInput = scanner.nextLine();
-            String[] inputByParts = userInput.split(" ");
+
+            // handle the input
+            // split to "ddl" and "read book \by Sunday" OR "mark" and "2"
+            String[] inputByParts = userInput.split(" ", 2);
             if (userInput.equals("bye")) {
                 printBye();
                 break;
@@ -25,14 +30,35 @@ public class Junny {
             } else if (inputByParts[0].equals("unmark")) {
                 int index = Integer.parseInt(inputByParts[1]) - 1;
                 markUndone(tasks[index]);
-            }
-            else {
-                Task t = new Task(userInput);
-                tasks[count] = t;
-                count++;
-                printLine();
-                System.out.println(" added: " + userInput);
-                printLine();
+            } else {
+                // if is todo, deadline, event: handle input first
+                String details = inputByParts[1];
+
+                if (inputByParts[0].equals("deadline")) {
+                    // split to "redd book" & "Sunday"
+                    String[] parts = details.split("/by", 2);
+                    String description = parts[0].trim();   // "read book"
+                    String by = parts[1].trim();    // "Sunday
+
+                    Deadline ddl = new Deadline(description, by);
+                    addTask(ddl);
+                } else if (inputByParts[0].equals("event")) {
+                    // split to "read book" & "/from xxx" (split on from)
+                    String[] parts1 = details.split("/from", 2);
+                    String description = parts1[0].trim();   // "read book"
+                    String fromTo = parts1[1].trim();    // "/from xxx /to xxx"
+                    // split to "from" & "to"
+                    String[] parts2 = fromTo.split("/to", 2);
+                    String from = parts2[0].trim();
+                    String to = parts2[1].trim();
+
+                    Event event = new Event(description, from, to);
+                    addTask(event);
+                } else {
+                    Todo todo = new Todo(details);
+                    addTask(todo);
+                }
+
             }
         }
         scanner.close();
@@ -71,4 +97,15 @@ public class Junny {
         System.out.println(task.toString());
         printLine();
     }
+
+    public static void addTask(Task task) {
+        tasks[count] = task;
+        count++;
+        printLine();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.printf("Now you have %d tasks in the list.\n", count);
+        printLine();
+    }
+
 }
