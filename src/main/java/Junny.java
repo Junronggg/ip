@@ -3,8 +3,14 @@ import java.util.Scanner;
 
 public class Junny {
     // make it global, so all mthds can access and change
-    static ArrayList<Task> tasks = new ArrayList<>();
-    static int count = 0;
+    // for file storage
+
+
+    static Storage storage = new Storage("./data/Junny.txt");
+    static ArrayList<Task> tasks = storage.loadAllTasks();
+    static int count = tasks.size();
+
+
 
     // exceptions to be handled:
     // 1. todo, deadline and event cannot be empty
@@ -130,6 +136,7 @@ public class Junny {
     public static void printBye() {
         System.out.println(" Bye. Hope to see you again soon!");
         printLine();
+        storage.saveAllTasks(tasks);
     }
 
     public static void markDone(Task task) {
@@ -138,6 +145,7 @@ public class Junny {
         task.markAsDone();
         System.out.println(task.toString());
         printLine();
+        storage.saveAllTasks(tasks);
     }
 
     public static void markUndone(Task task) {
@@ -146,6 +154,7 @@ public class Junny {
         task.markAsNotDone();
         System.out.println(task.toString());
         printLine();
+        storage.saveAllTasks(tasks);
     }
 
     public static void addTask(Task task) {
@@ -156,6 +165,7 @@ public class Junny {
         System.out.println(task.toString());
         System.out.printf("Now you have %d tasks in the list.\n", count);
         printLine();
+        storage.saveAllTasks(tasks); // save after adding
     }
 
     public static void deleteTask(Task task) {
@@ -166,6 +176,7 @@ public class Junny {
         count--;
         System.out.printf("Now you have %d tasks in the list.\n", count);
         printLine();
+        storage.saveAllTasks(tasks);
     }
 
     public static void printError(String msg) {
