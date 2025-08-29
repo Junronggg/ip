@@ -31,10 +31,11 @@ public abstract class Task {
 
     public abstract  String toFileString();
 
+    // this still works when changing to LocalDate, since the constructor for
+    // ddl is (des, String by), so it does conversion automatically
     public static Task convertToTask(String s) {
         String[] getTaskType = s.split(" \\| ");
         String type = getTaskType[0];
-        System.out.println(type);
         boolean isDone = getTaskType[1].equals("1");
         String task = getTaskType[2];
         switch(type) {

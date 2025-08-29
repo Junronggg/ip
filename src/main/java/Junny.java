@@ -1,16 +1,13 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Junny {
     // make it global, so all mthds can access and change
     // for file storage
-
-
     static Storage storage = new Storage("./data/Junny.txt");
     static ArrayList<Task> tasks = storage.loadAllTasks();
     static int count = tasks.size();
-
-
 
     // exceptions to be handled:
     // 1. todo, deadline and event cannot be empty
@@ -21,13 +18,10 @@ public class Junny {
     // 6. event must follow /from /to
 
     public static void main(String[] args) {
+        printHi();
         Scanner scanner = new Scanner(System.in);
-        printLine();
-        System.out.println(" Hello! I'm Junny");
-        System.out.println(" What can I do for you?");
-        printLine();
 
-        // all inputs: todo, deadline, event, list, mark, unmark
+        // all inputs: todo, deadline, event, list, mark, unmark, list on
         while (true) {
             String userInput = scanner.nextLine();
 
@@ -49,7 +43,24 @@ public class Junny {
                 printBye();
                 break;
             } else if (command == CommandTypes.LIST) {
-                printAllTasks(tasks, count);
+                // case when the user said "list": just print the whole list of events
+                if (inputByParts.length == 1) {
+                    printAllTasks(tasks, count);
+                } else {
+                    // case when the user said "list /on dd": print only task on that date
+                    if (inputByParts[1].startsWith("/on ")) {
+                        String dateStr = inputByParts[1].substring(4).trim(); // get the date string, which is 4th position
+                        try {
+                            LocalDate targetDate = LocalDate.parse(dateStr); // yyyy-MM-dd
+                            printTaskOnDate(targetDate);
+                        } catch (Exception e) {
+                            printError("Please enter the date in yyyy-MM-dd format.");
+                        }
+                    } else {
+                        printError("Invalid list command. Use 'list' or 'list /on yyyy-MM-dd'");
+                    }
+                }
+
             } else if (command == CommandTypes.MARK || command == CommandTypes.UNMARK || command == CommandTypes.DELETE) {
                 try {
                     // VERY IMPORTANT: mark 2 extract 2, but it actually mark tasks[1]!!!
@@ -133,6 +144,14 @@ public class Junny {
         printLine();
     }
 
+    public static void printHi() {
+        printLine();
+        System.out.println(" Hello! I'm Junny");
+        System.out.println(" What can I do for you?");
+        System.out.println("todo: todo x; deadline: deadline y /by yyyy-mm-dd; event: event x /from yyyy-mm-dd /to yyyy-mm-dd");
+        printLine();
+    }
+
     public static void printBye() {
         System.out.println(" Bye. Hope to see you again soon!");
         printLine();
@@ -182,6 +201,31 @@ public class Junny {
     public static void printError(String msg) {
         printLine();
         System.out.println("OOPS!!!" + msg);
+        printLine();
+    }
+
+    public static void printTaskOnDate(LocalDate date) {
+        printLine();
+        System.out.println("Here are the tasks in your list on the day: ");
+        boolean hasTask = false;
+        for (Task t : tasks) {
+            if (t instanceof Deadline) {
+                if (((Deadline) t).getBy().equals(date)) {
+                    System.out.println(t);
+                    hasTask = true;
+                }
+            } else if (t instanceof Event) {
+                LocalDate from = ((Event) t).getStart();
+                LocalDate to = ((Event) t).getEnd();
+                if (!date.isBefore(from) && !date.isAfter(to)) {
+                    System.out.println(t);
+                    hasTask = true;
+                }
+            }
+        }
+        if (!hasTask) {
+            System.out.println("No tasks on this date.");
+        }
         printLine();
     }
 }

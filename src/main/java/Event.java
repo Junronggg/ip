@@ -1,16 +1,29 @@
+import javax.swing.text.DateFormatter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
     public Event(String description, String start, String end) {
         super(description, TaskTypes.EVENT);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
+    }
+
+    public LocalDate getStart() {
+        return this.start;
+    }
+
+    public LocalDate getEnd() {
+        return this.end;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-M-d");
+        return "[E]" + super.toString() + " (from: " + start.format(outputFormat) + " to: " + end.format(outputFormat) + ")";
     }
 
     @Override
