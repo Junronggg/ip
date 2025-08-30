@@ -2,6 +2,10 @@ package Junny;
 
 import java.util.ArrayList;
 
+/**
+ * The main entry point of the Duke program.
+ * Initializes necessary components and runs the application.
+ */
 public class JunnyOop {
     static Ui ui = new Ui();
     static Storage storage = new Storage("./data/Junny.Junny.txt");

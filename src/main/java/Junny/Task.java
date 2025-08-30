@@ -1,11 +1,20 @@
 package Junny;
 
-
+/**
+ * Represents a task with a description, completion status and task type.
+ * A Task can be marked as done or not done.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
     protected TaskTypes type;
 
+    /**
+     * Creates a Task with the given description.
+     *
+     * @param description The description of the task.
+     * @param type The type from enum class TaskTypes
+     */
     public Task(String description, TaskTypes type) {
         this.description = description;
         this.type = type;
@@ -32,8 +41,17 @@ public abstract class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    public abstract  String toFileString();
+    /**
+     * Parse the task to the format for saving
+     * @return A string representation of the task
+     */
+    public abstract String toFileString();
 
+    /**
+     * Parse the string from local file to tasks
+     * @param s The line of string from the file
+     * @return A task object representing the string
+     */
     // this still works when changing to LocalDate, since the constructor for
     // ddl is (des, String by), so it does conversion automatically
     public static Task convertToTask(String s) {

@@ -2,6 +2,9 @@ package Junny;
 
 import java.time.LocalDate;
 
+/**
+ * Parses user input into commands that the program can execute.
+ */
 public class Parser {
     public Ui ui;
 
@@ -9,6 +12,12 @@ public class Parser {
         this.ui = ui;
     }
 
+    /**
+     * Parses the given input string and returns the corresponding command.
+     *
+     * @param userCommand The command entered by the user
+     * @return A Command object representing the parsed instruction
+     */
     public Command parse(String userCommand) {
         String[] inputByParts = userCommand.split(" ", 2);
         String commandWord = inputByParts[0].toUpperCase();

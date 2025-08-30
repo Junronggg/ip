@@ -1,2 +1,6 @@
 T | 1 | read book
-E | 0 | return | 2025-08-30 to 2025-08-30
+T | 0 | st1131 quiz
+T | 0 | cs2103 ip
+T | 0 | wit
+T | 0 | RFP
+T | 0 | comp day

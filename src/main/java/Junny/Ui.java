@@ -4,13 +4,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles interactions with the user
+ * Reading input and displaying output messages. (not responsible for modifying local file!)
+ */
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Creates a Ui object with an input scanner.
+     */
     public Ui() {
         scanner = new Scanner(System.in);
     }
 
+    /**
+     * Reads the next line of input from the user.
+     *
+     * @return The user's input as a string
+     */
     public String readCommands() {
         return this.scanner.nextLine();
     }
