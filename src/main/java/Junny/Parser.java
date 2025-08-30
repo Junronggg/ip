@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Parser {
     public Ui ui;
 
-    public Parser (Ui ui) {
+    public Parser(Ui ui) {
         this.ui = ui;
     }
 
