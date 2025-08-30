@@ -28,12 +28,24 @@ test {
 }
 
 application {
-    mainClass.set("Junny.JunnyTest")
+    mainClass.set("Junny.JunnyOop")
+}
+
+jar {
+    // creates a normal JAR file.
+    manifest {
+        attributes(
+                'Main-Class': 'Junny.JunnyOop'  // your main class with main() method
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveClassifier = null
+    archiveBaseName = "junny"   // The JAR name (junny.jar)
+    archiveClassifier = null    // Don’t add "-all" suffix, just call it junny.jar
 }
 
 run{
