@@ -1,7 +1,9 @@
+package Junny;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ListOnDateCommand extends Command{
+public class ListOnDateCommand extends Command {
     LocalDate date;
 
     public ListOnDateCommand(LocalDate date) {

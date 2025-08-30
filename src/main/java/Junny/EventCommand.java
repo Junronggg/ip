@@ -1,6 +1,8 @@
+package Junny;
+
 import java.util.ArrayList;
 
-public class EventCommand extends Command{
+public class EventCommand extends Command {
     private String description;
     private String from;
     private String to;

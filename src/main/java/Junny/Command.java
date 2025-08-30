@@ -1,3 +1,5 @@
+package Junny;
+
 import java.util.ArrayList;
 
 public abstract class Command {
@@ -5,5 +7,5 @@ public abstract class Command {
 
     public boolean isExit() {
         return false;
-    } // only overridden by ByeCommand
+    } // only overridden by Junny.Junny.Junny.Junny.Command.ByeCommand
 }

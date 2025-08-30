@@ -1,8 +1,10 @@
+package Junny;
+
 import java.util.ArrayList;
 
 public class JunnyTest {
     static Ui ui = new Ui();
-    static Storage storage = new Storage("./data/Junny.txt");
+    static Storage storage = new Storage("./data/Junny.Junny.txt");
     static ArrayList<Task> tasks = storage.loadAllTasks();
 
     public static void main(String[] args) {

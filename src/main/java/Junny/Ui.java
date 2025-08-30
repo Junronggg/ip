@@ -1,3 +1,5 @@
+package Junny;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,7 +21,7 @@ public class Ui {
 
     public void printHi() {
         printLine();
-        System.out.println(" Hello! I'm Junny");
+        System.out.println(" Hello! I'm Junny.Junny");
         System.out.println(" What can I do for you?");
         System.out.println("todo: todo x; deadline: deadline y /by yyyy-mm-dd; event: event x /from yyyy-mm-dd /to yyyy-mm-dd");
         printLine();

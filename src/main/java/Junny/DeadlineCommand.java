@@ -1,6 +1,8 @@
+package Junny;
+
 import java.util.ArrayList;
 
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
     private String description;
     private String by;
 
