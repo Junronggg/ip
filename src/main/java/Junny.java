@@ -4,6 +4,12 @@ import java.util.Scanner;
 
 public class Junny {
     // make it global, so all mthds can access and change
+    // the fields need to be static, so can be accessed in the main mthd
+
+    // when interact with Junny, each time there is a 'interactive board', which is the object of Ui class
+    static Ui ui = new Ui();
+    // for parsing commands
+    // static Parser parser = new Parser(ui);
     // for file storage
     static Storage storage = new Storage("./data/Junny.txt");
     static ArrayList<Task> tasks = storage.loadAllTasks();
@@ -18,12 +24,11 @@ public class Junny {
     // 6. event must follow /from /to
 
     public static void main(String[] args) {
-        printHi();
-        Scanner scanner = new Scanner(System.in);
+        ui.printHi();
 
         // all inputs: todo, deadline, event, list, mark, unmark, list on
         while (true) {
-            String userInput = scanner.nextLine();
+            String userInput = ui.readCommands();
 
             // handle the input
             // split to "ddl" and "read book \by Sunday" OR "mark" and "2"
@@ -35,12 +40,12 @@ public class Junny {
                 command = CommandTypes.valueOf(commandWord);
             } catch (IllegalArgumentException e) {
                 // handle exception 2
-                printError("I'm sorry, but I don't know what that means :(");
+                ui.printError("I'm sorry, but I don't know what that means :(");
                 continue;
             }
 
             if (command == CommandTypes.BYE) {
-                printBye();
+                ui.printBye();
                 break;
             } else if (command == CommandTypes.LIST) {
                 // case when the user said "list": just print the whole list of events
@@ -54,10 +59,10 @@ public class Junny {
                             LocalDate targetDate = LocalDate.parse(dateStr); // yyyy-MM-dd
                             printTaskOnDate(targetDate);
                         } catch (Exception e) {
-                            printError("Please enter the date in yyyy-MM-dd format.");
+                            ui.printError("Please enter the date in yyyy-MM-dd format.");
                         }
                     } else {
-                        printError("Invalid list command. Use 'list' or 'list /on yyyy-MM-dd'");
+                        ui.printError("Invalid list command. Use 'list' or 'list /on yyyy-MM-dd'");
                     }
                 }
 
@@ -71,16 +76,16 @@ public class Junny {
                     } else if (command == CommandTypes.UNMARK) {
                         if (tasks.get(index).isDone) markUndone(tasks.get(index));
                         // throw & handle exception 4
-                        else printError("The task is not done yet, and you do not need to undo it!");
+                        else ui.printError("The task is not done yet, and you do not need to undo it!");
                     } else if (command == CommandTypes.DELETE) {
                         deleteTask(tasks.get(index));
                     }
                 } catch (NumberFormatException e) {
                     // handle exception 3
-                    printError("Please enter a valid number for " + command + ".");
+                    ui.printError("Please enter a valid number for " + command + ".");
                 } catch (IndexOutOfBoundsException | NullPointerException e) {
                     // handle exception 3
-                    printError("The task number you give does not exist. Please check again!");
+                    ui.printError("The task number you give does not exist. Please check again!");
                 }
             }
             else if (command == CommandTypes.DEADLINE || command == CommandTypes.TODO || command == CommandTypes.EVENT){
@@ -118,17 +123,16 @@ public class Junny {
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     // handle exception 1: make sure it is not empty
-                    printError("The task description cannot be exmpty!");
+                    ui.printError("The task description cannot be exmpty!");
                 } catch (IllegalArgumentException e) {
                     // handle exception 5 & 6
-                    printError(e.getMessage());
+                    ui.printError(e.getMessage());
                 }
             } else {
                 // handle exception 2
-                printError("I'm sorry, but I don't know what that means :(");
+                ui.printError("I'm sorry, but I don't know what that means :(");
             }
         }
-        scanner.close();
     }
 
     public static void printLine() {
@@ -142,20 +146,6 @@ public class Junny {
             System.out.println(tasks.get(i).toString());
         }
         printLine();
-    }
-
-    public static void printHi() {
-        printLine();
-        System.out.println(" Hello! I'm Junny");
-        System.out.println(" What can I do for you?");
-        System.out.println("todo: todo x; deadline: deadline y /by yyyy-mm-dd; event: event x /from yyyy-mm-dd /to yyyy-mm-dd");
-        printLine();
-    }
-
-    public static void printBye() {
-        System.out.println(" Bye. Hope to see you again soon!");
-        printLine();
-        storage.saveAllTasks(tasks);
     }
 
     public static void markDone(Task task) {
@@ -196,12 +186,6 @@ public class Junny {
         System.out.printf("Now you have %d tasks in the list.\n", count);
         printLine();
         storage.saveAllTasks(tasks);
-    }
-
-    public static void printError(String msg) {
-        printLine();
-        System.out.println("OOPS!!!" + msg);
-        printLine();
     }
 
     public static void printTaskOnDate(LocalDate date) {

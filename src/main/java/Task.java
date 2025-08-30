@@ -50,7 +50,7 @@ public abstract class Task {
             case "E":
                 String time = getTaskType[3];
                 // form is fromTo[0], to is fromTo[1]
-                String[] fromTo = time.split("-");
+                String[] fromTo = time.split(" to ");
                 Event e = new Event(task, fromTo[0], fromTo[1]);
                 if(isDone) e.markAsDone();
                 return e;

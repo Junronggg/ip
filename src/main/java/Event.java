@@ -34,6 +34,6 @@ public class Event extends Task {
         } else {
             status = 0;
         }
-       return "E | " + status + " | " + this.description + " | " + this.start + "-" + this.end ;
+       return "E | " + status + " | " + this.description + " | " + this.start + " to " + this.end ;
     }
 }
