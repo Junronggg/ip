@@ -2,7 +2,7 @@ package Junny;
 
 public class Todo extends Task {
     public Todo(String description) {
-        super(description, TaskTypes.EVENT);
+        super(description, TaskTypes.TODO);
     }
 
     @Override
