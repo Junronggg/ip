@@ -1,17 +1,18 @@
+package Junny;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Junny {
     // make it global, so all mthds can access and change
     // the fields need to be static, so can be accessed in the main mthd
 
-    // when interact with Junny, each time there is a 'interactive board', which is the object of Ui class
+    // when interact with Junny.Junny, each time there is a 'interactive board', which is the object of Junny.Ui class
     static Ui ui = new Ui();
     // for parsing commands
-    // static Parser parser = new Parser(ui);
+    // static Junny.Parser parser = new Junny.Parser(ui);
     // for file storage
-    static Storage storage = new Storage("./data/Junny.txt");
+    static Storage storage = new Storage("./data/Junny.Junny.txt");
     static ArrayList<Task> tasks = storage.loadAllTasks();
     static int count = tasks.size();
 

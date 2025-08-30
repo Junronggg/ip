@@ -1,6 +1,8 @@
+package Junny;
+
 import java.util.ArrayList;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
     private final int index;
 
     public UnmarkCommand(int index) {

@@ -1,6 +1,8 @@
+package Junny;
+
 import java.util.ArrayList;
 
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
     @Override
     public void run(ArrayList<Task> tasks, Ui ui, Storage storage) {
         ui.printBye();

@@ -1,3 +1,5 @@
+package Junny;
+
 public enum CommandTypes {
         TODO,
         DEADLINE,
