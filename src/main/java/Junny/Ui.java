@@ -113,4 +113,19 @@ public class Ui {
         }
         printLine();
     }
+
+    public void findResults(ArrayList<Task> tasksToPrint) {
+        if (tasksToPrint.isEmpty()) {
+            printLine();
+            System.out.println("There is no matching task :(");
+            printLine();
+        } else {
+            printLine();
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasksToPrint.size(); i++) {
+                System.out.println((i + 1) + "." + tasksToPrint.get(i).toString());
+            }
+            printLine();
+        }
+    }
 }

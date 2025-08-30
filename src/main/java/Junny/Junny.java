@@ -66,7 +66,19 @@ public class Junny {
                         ui.printError("Invalid list command. Use 'list' or 'list /on yyyy-MM-dd'");
                     }
                 }
-
+            } else if (command == CommandTypes.FIND) {
+                String searchWord = inputByParts[1];
+                printLine();
+                boolean hasMatchingTask = false;
+                // ArrayList<Task> result = new ArrayList<>();
+                for (Task t : tasks) {
+                    if (t.toString().contains(searchWord)) {
+                        System.out.println(t.toString());
+                        hasMatchingTask = true;
+                    }
+                }
+                if (!hasMatchingTask) System.out.println("There is no matching task :(");
+                printLine();
             } else if (command == CommandTypes.MARK || command == CommandTypes.UNMARK || command == CommandTypes.DELETE) {
                 try {
                     // VERY IMPORTANT: mark 2 extract 2, but it actually mark tasks[1]!!!

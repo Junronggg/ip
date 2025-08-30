@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Parser {
     public Ui ui;
 
-    public Parser (Ui ui) {
+    public Parser(Ui ui) {
         this.ui = ui;
     }
 
@@ -83,6 +83,8 @@ public class Parser {
             case CommandTypes.TODO:
                 return new TodoCommand(commandDetail);
 
+            case CommandTypes.FIND:
+                return new FindCommand(commandDetail);
             default:
                 // handle exception 2
                 throw new IllegalArgumentException("I'm sorry, but I don't know what that means :(");
