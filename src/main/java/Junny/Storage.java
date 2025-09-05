@@ -1,5 +1,7 @@
 package Junny;
 
+import Junny.Tasks.Task;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

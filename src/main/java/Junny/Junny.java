@@ -1,5 +1,10 @@
 package Junny;
 
+import Junny.Tasks.Deadline;
+import Junny.Tasks.Event;
+import Junny.Tasks.Task;
+import Junny.Tasks.Todo;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -87,7 +92,7 @@ public class Junny {
                     if (command == CommandTypes.MARK) {
                         markDone(tasks.get(index));
                     } else if (command == CommandTypes.UNMARK) {
-                        if (tasks.get(index).isDone) markUndone(tasks.get(index));
+                        if (tasks.get(index).isDone()) markUndone(tasks.get(index));
                         // throw & handle exception 4
                         else ui.printError("The task is not done yet, and you do not need to undo it!");
                     } else if (command == CommandTypes.DELETE) {

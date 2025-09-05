@@ -1,2 +1,5 @@
-T | 0 | st1131 quiz
-T | 0 | cs2103T
+T | 0 | 2101 slides
+T | 0 | RFP forms
+E | 0 | meet mentor | 2025-09-06 to 2025-09-06
+D | 1 | CS2103T quiz | 2025-09-05
+D | 0 | ip | 2025-09-06

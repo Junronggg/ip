@@ -1,5 +1,9 @@
 package Junny;
 
+import Junny.Tasks.Deadline;
+import Junny.Tasks.Event;
+import Junny.Tasks.Task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;

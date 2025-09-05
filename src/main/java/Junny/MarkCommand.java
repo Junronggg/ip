@@ -1,5 +1,8 @@
 package Junny;
 
+import Junny.Command.Command;
+import Junny.Tasks.Task;
+
 import java.util.ArrayList;
 
 public class MarkCommand extends Command {

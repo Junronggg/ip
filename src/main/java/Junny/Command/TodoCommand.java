@@ -1,4 +1,9 @@
-package Junny;
+package Junny.Command;
+
+import Junny.Storage;
+import Junny.Tasks.Task;
+import Junny.Tasks.Todo;
+import Junny.Ui;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,6 @@
-package Junny;
+package Junny.Tasks;
+
+import Junny.TaskTypes;
 
 public class Todo extends Task {
     public Todo(String description) {

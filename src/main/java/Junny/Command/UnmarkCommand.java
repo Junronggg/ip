@@ -1,4 +1,8 @@
-package Junny;
+package Junny.Command;
+
+import Junny.Storage;
+import Junny.Tasks.Task;
+import Junny.Ui;
 
 import java.util.ArrayList;
 
@@ -12,7 +16,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void run(ArrayList<Task> tasks, Ui ui, Storage storage) {
         try {
-            if (tasks.get(index - 1).isDone) {
+            if (tasks.get(index - 1).isDone()) {
                 tasks.get(index - 1).markAsNotDone();
                 ui.markUndone(tasks.get(index - 1));
                 storage.saveAllTasks(tasks);

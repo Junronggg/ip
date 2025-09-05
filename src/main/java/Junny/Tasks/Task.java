@@ -1,4 +1,6 @@
-package Junny;
+package Junny.Tasks;
+
+import Junny.TaskTypes;
 
 /**
  * Represents a task with a description, completion status and task type.
@@ -31,6 +33,10 @@ public abstract class Task {
 
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     public TaskTypes getType() {

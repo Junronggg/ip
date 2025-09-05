@@ -1,4 +1,6 @@
-package Junny;
+package Junny.Tasks;
+
+import Junny.TaskTypes;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
