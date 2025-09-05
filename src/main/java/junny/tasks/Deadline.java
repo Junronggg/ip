@@ -1,9 +1,9 @@
-package Junny.Tasks;
-
-import Junny.TaskTypes;
+package junny.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import junny.TaskTypes;
 
 public class Deadline extends Task {
     protected LocalDate by;

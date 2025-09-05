@@ -1,11 +1,15 @@
-package Junny.Command;
-
-import Junny.Storage;
-import Junny.Tasks.Task;
-import Junny.Ui;
+package junny.command;
 
 import java.util.ArrayList;
 
+import junny.Storage;
+import junny.Ui;
+import junny.tasks.Task;
+
+
+/***
+ * ByeCommand class to break the loop and exit the programme
+ */
 public class ByeCommand extends Command {
     @Override
     public void run(ArrayList<Task> tasks, Ui ui, Storage storage) {

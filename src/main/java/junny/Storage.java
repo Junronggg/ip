@@ -1,12 +1,14 @@
-package Junny;
-
-import Junny.Tasks.Task;
+package junny;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+
+import junny.tasks.Task;
+
+
 
 /**
  * Handles loading and saving of tasks to a file.
@@ -22,7 +24,7 @@ public class Storage {
      *
      * @param filePath Path of the file to load and save tasks
      */
-    public Storage (String filePath) {
+    public Storage(String filePath) {
         // get the filePath
         this.filePath = Paths.get(filePath);
         try {
@@ -44,9 +46,10 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file
      */
     // save all tasks to the file
-    // saving the whole again every time: easier when coding, since for tasks like mark and unmark, need to delete & add again
+    // saving the whole again every time: easier when coding, since for tasks like mark and unmark,
+    // need to delete & add again
     // can just simply change the task list, then save everything again
-    public void saveAllTasks (ArrayList<Task> tasks) {
+    public void saveAllTasks(ArrayList<Task> tasks) {
         List<String> lines = new ArrayList<>();
         for (Task t : tasks) {
             lines.add(t.toFileString());
@@ -64,7 +67,7 @@ public class Storage {
      * @return A list of tasks loaded from the file
      * @throws IOException If an I/O error occurs while reading the file
      */
-    public ArrayList<Task> loadAllTasks () {
+    public ArrayList<Task> loadAllTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             List<String> content = Files.readAllLines(filePath);

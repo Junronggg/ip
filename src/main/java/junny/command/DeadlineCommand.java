@@ -1,11 +1,13 @@
-package Junny.Command;
-
-import Junny.Tasks.Deadline;
-import Junny.Storage;
-import Junny.Tasks.Task;
-import Junny.Ui;
+package junny.command;
 
 import java.util.ArrayList;
+
+import junny.Storage;
+import junny.Ui;
+import junny.tasks.Deadline;
+import junny.tasks.Task;
+
+
 
 public class DeadlineCommand extends Command {
     private String description;

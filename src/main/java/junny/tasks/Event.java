@@ -1,9 +1,9 @@
-package Junny.Tasks;
-
-import Junny.TaskTypes;
+package junny.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import junny.TaskTypes;
 
 public class Event extends Task {
     protected LocalDate start;
@@ -26,7 +26,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("yyyy-M-d");
-        return "[E]" + super.toString() + " (from: " + start.format(outputFormat) + " to: " + end.format(outputFormat) + ")";
+        return "[E]" + super.toString() + " (from: " + start.format(outputFormat)
+                + " to: " + end.format(outputFormat) + ")";
     }
 
     @Override
@@ -37,6 +38,6 @@ public class Event extends Task {
         } else {
             status = 0;
         }
-       return "E | " + status + " | " + this.description + " | " + this.start + " to " + this.end ;
+        return "E | " + status + " | " + this.description + " | " + this.start + " to " + this.end;
     }
 }

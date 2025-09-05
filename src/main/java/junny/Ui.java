@@ -1,12 +1,12 @@
-package Junny;
-
-import Junny.Tasks.Deadline;
-import Junny.Tasks.Event;
-import Junny.Tasks.Task;
+package junny;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import junny.tasks.Deadline;
+import junny.tasks.Event;
+import junny.tasks.Task;
 
 /**
  * Handles interactions with the user
@@ -39,7 +39,8 @@ public class Ui {
         printLine();
         System.out.println(" Hello! I'm Junny");
         System.out.println(" What can I do for you?");
-        System.out.println("todo: todo x; deadline: deadline y /by yyyy-mm-dd; event: event x /from yyyy-mm-dd /to yyyy-mm-dd");
+        System.out.println("todo: todo x; deadline: deadline y /by yyyy-mm-dd; "
+                + "event: event x /from yyyy-mm-dd /to yyyy-mm-dd");
         printLine();
     }
 

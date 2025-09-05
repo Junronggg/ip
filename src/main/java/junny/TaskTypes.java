@@ -1,4 +1,4 @@
-package Junny;
+package junny;
 
 public enum TaskTypes {
     TODO,

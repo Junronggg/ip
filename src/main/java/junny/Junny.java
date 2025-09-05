@@ -1,19 +1,19 @@
-package Junny;
-
-import Junny.Command.Command;
-import Junny.Tasks.Task;
+package junny;
 
 import java.util.ArrayList;
+
+import junny.command.Command;
+import junny.tasks.Task;
 
 /**
  * The main entry point of the Duke program.
  * Initializes necessary components and runs the application.
  */
-public class JunnyOop {
-    static Ui ui = new Ui();
+public class Junny {
+    private static Ui ui = new Ui();
     // store in D:\work\CS2103T\ip\data
-    static Storage storage = new Storage("./data/JunnyOop.txt");
-    static ArrayList<Task> tasks = storage.loadAllTasks();
+    private static Storage storage = new Storage("./data/JunnyOop.txt");
+    private static ArrayList<Task> tasks = storage.loadAllTasks();
 
     public static void main(String[] args) {
         ui.printHi();
@@ -24,11 +24,15 @@ public class JunnyOop {
             String userInput = ui.readCommands();
             Command command = parser.parse(userInput);
 
-            if (command == null) continue; // invalid input handled in parser
+            if (command == null) {
+                continue; // invalid input handled in parser
+            }
 
             command.run(tasks, ui, storage);
 
-            if (command.isExit()) break;
+            if (command.isExit()) {
+                break;
+            }
         }
     }
 }

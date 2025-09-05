@@ -1,10 +1,10 @@
-package Junny.Command;
-
-import Junny.Storage;
-import Junny.Tasks.Task;
-import Junny.Ui;
+package junny.command;
 
 import java.util.ArrayList;
+
+import junny.Storage;
+import junny.Ui;
+import junny.tasks.Task;
 
 public class FindCommand extends Command {
     private final String searchWord;

@@ -1,25 +1,25 @@
-package Junny;
-
-import Junny.Tasks.Deadline;
-import Junny.Tasks.Event;
-import Junny.Tasks.Task;
-import Junny.Tasks.Todo;
+package junny;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Junny {
+import junny.tasks.Deadline;
+import junny.tasks.Event;
+import junny.tasks.Task;
+import junny.tasks.Todo;
+
+public class JunnyOld {
     // make it global, so all mthds can access and change
     // the fields need to be static, so can be accessed in the main mthd
 
     // when interact with Junny.Junny, each time there is a 'interactive board', which is the object of Junny.Ui class
-    static Ui ui = new Ui();
+    private static Ui ui = new Ui();
     // for parsing commands
     // static Junny.Parser parser = new Junny.Parser(ui);
     // for file storage
-    static Storage storage = new Storage("./data/Junny.Junny.txt");
-    static ArrayList<Task> tasks = storage.loadAllTasks();
-    static int count = tasks.size();
+    private static Storage storage = new Storage("./data/Junny.Junny.txt");
+    private static ArrayList<Task> tasks = storage.loadAllTasks();
+    private static int count = tasks.size();
 
     // exceptions to be handled:
     // 1. todo, deadline and event cannot be empty
@@ -60,7 +60,8 @@ public class Junny {
                 } else {
                     // case when the user said "list /on dd": print only task on that date
                     if (inputByParts[1].startsWith("/on ")) {
-                        String dateStr = inputByParts[1].substring(4).trim(); // get the date string, which is 4th position
+                        String dateStr = inputByParts[1].substring(4).trim();
+                        // get the date string, which is 4th position
                         try {
                             LocalDate targetDate = LocalDate.parse(dateStr); // yyyy-MM-dd
                             printTaskOnDate(targetDate);
@@ -82,19 +83,25 @@ public class Junny {
                         hasMatchingTask = true;
                     }
                 }
-                if (!hasMatchingTask) System.out.println("There is no matching task :(");
+                if (!hasMatchingTask) {
+                    System.out.println("There is no matching task :(");
+                }
                 printLine();
-            } else if (command == CommandTypes.MARK || command == CommandTypes.UNMARK || command == CommandTypes.DELETE) {
+            } else if (command == CommandTypes.MARK || command == CommandTypes.UNMARK
+                    || command == CommandTypes.DELETE) {
                 try {
                     // VERY IMPORTANT: mark 2 extract 2, but it actually mark tasks[1]!!!
-                    int index = Integer.parseInt(inputByParts[1]) - 1;  // may throw NumberFormatException
+                    int index = Integer.parseInt(inputByParts[1]) - 1; // may throw NumberFormatException
                     // throw exception 3: may throw ArrayIndexOutOFBoundsException
                     if (command == CommandTypes.MARK) {
                         markDone(tasks.get(index));
                     } else if (command == CommandTypes.UNMARK) {
-                        if (tasks.get(index).isDone()) markUndone(tasks.get(index));
-                        // throw & handle exception 4
-                        else ui.printError("The task is not done yet, and you do not need to undo it!");
+                        if (tasks.get(index).isDone()) {
+                            markUndone(tasks.get(index));
+                        } else {
+                            // throw & handle exception 4
+                            ui.printError("The task is not done yet, and you do not need to undo it!");
+                        }
                     } else if (command == CommandTypes.DELETE) {
                         deleteTask(tasks.get(index));
                     }
@@ -105,30 +112,39 @@ public class Junny {
                     // handle exception 3
                     ui.printError("The task number you give does not exist. Please check again!");
                 }
-            }
-            else if (command == CommandTypes.DEADLINE || command == CommandTypes.TODO || command == CommandTypes.EVENT){
+            } else if (command == CommandTypes.DEADLINE || command == CommandTypes.TODO
+                    || command == CommandTypes.EVENT) {
                 // if is todo, deadline, event: handle input first
-                try{
+                try {
                     String details = inputByParts[1];
                     if (command == CommandTypes.DEADLINE) {
-                       // split to "read book" & "Sunday"
+                        // split to "read book" & "Sunday"
                         String[] parts = details.split("/by", 2);
                         // throw exception 5
-                        if (parts.length < 2) throw new IllegalArgumentException("deadline task must have a due time. Please follow deadline read /by xx.");
-                        String description = parts[0].trim();   // "read book"
-                        String by = parts[1].trim();    // "Sunday
+                        if (parts.length < 2) {
+                            throw new IllegalArgumentException("deadline task must have a due time. "
+                                    + "Please follow deadline read /by xx.");
+                        }
+                        String description = parts[0].trim(); // "read book"
+                        String by = parts[1].trim(); // "Sunday
                         Deadline ddl = new Deadline(description, by);
                         addTask(ddl);
                     } else if (command == CommandTypes.EVENT) {
                         // split to "read book" & "/from xxx" (split on from)
                         String[] parts1 = details.split("/from", 2);
                         // throw exception 6
-                        if (parts1.length <2) throw new IllegalArgumentException("event task must have a from time. Please follow event read /from xx /to yy.");
-                        String description = parts1[0].trim();   // "read book"
-                        String fromTo = parts1[1].trim();    // "/from xxx /to xxx"
+                        if (parts1.length < 2) {
+                            throw new IllegalArgumentException("event task must have a from time. "
+                                    + "Please follow event read /from xx /to yy.");
+                        }
+                        String description = parts1[0].trim(); // "read book"
+                        String fromTo = parts1[1].trim(); // "/from xxx /to xxx"
                         // split to "from" & "to"
                         String[] parts2 = fromTo.split("/to", 2);
-                        if (parts2.length <2) throw new IllegalArgumentException("event task must have a to time. Please follow event read /from xx /to yy.");
+                        if (parts2.length < 2) {
+                            throw new IllegalArgumentException("event task must have a to time. "
+                                    + "Please follow event read /from xx /to yy.");
+                        }
 
                         String from = parts2[0].trim();
                         String to = parts2[1].trim();

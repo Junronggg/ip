@@ -1,14 +1,17 @@
-package Junny.Command;
-
-import Junny.Storage;
-import Junny.Tasks.Task;
-import Junny.Ui;
+package junny.command;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import junny.Storage;
+import junny.Ui;
+import junny.tasks.Task;
+
+
+
+
 public class ListOnDateCommand extends Command {
-    LocalDate date;
+    private LocalDate date;
 
     public ListOnDateCommand(LocalDate date) {
         this.date = date;
