@@ -3,6 +3,7 @@ package junny;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import junny.Ui.Ui;
 import junny.tasks.Deadline;
 import junny.tasks.Event;
 import junny.tasks.Task;

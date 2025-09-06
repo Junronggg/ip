@@ -2,6 +2,7 @@ package junny;
 
 import java.time.LocalDate;
 
+import junny.Ui.Ui;
 import junny.command.ByeCommand;
 import junny.command.Command;
 import junny.command.DeadlineCommand;
@@ -49,9 +50,9 @@ public class Parser {
         }
 
         switch (command) {
-        case CommandTypes.BYE:
+        case BYE:
             return new ByeCommand();
-        case CommandTypes.LIST:
+        case LIST:
             if (commandDetail.startsWith("/on")) {
                 try {
                     String dateStr = inputByParts[1].substring(4).trim(); // get the date string, which is 4th position
@@ -63,14 +64,14 @@ public class Parser {
             } else {
                 return new ListCommand();
             }
-        case CommandTypes.MARK:
+        case MARK:
             return new MarkCommand(Integer.valueOf(commandDetail));
-        case CommandTypes.UNMARK:
+        case UNMARK:
             return new UnmarkCommand(Integer.valueOf(commandDetail));
-        case CommandTypes.DELETE:
+        case DELETE:
             return new DeleteCommand(Integer.valueOf(commandDetail));
 
-        case CommandTypes.DEADLINE:
+        case DEADLINE:
             // split to "read book" & "Sunday"
             String[] parts = commandDetail.split("/by", 2);
             // throw exception 5
@@ -82,7 +83,7 @@ public class Parser {
             String by = parts[1].trim(); // "Sunday
             return new DeadlineCommand(description, by);
 
-        case CommandTypes.EVENT:
+        case EVENT:
             // split to "read book" & "/from xxx" (split on from)
             String[] parts1 = commandDetail.split("/from", 2);
             // throw exception 6
@@ -102,10 +103,10 @@ public class Parser {
             String to = parts2[1].trim();
             return new EventCommand(eventDescription, from, to);
 
-        case CommandTypes.TODO:
+        case TODO:
             return new TodoCommand(commandDetail);
 
-        case CommandTypes.FIND:
+        case FIND:
             return new FindCommand(commandDetail);
         default:
             // handle exception 2

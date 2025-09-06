@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import junny.Storage;
-import junny.Ui;
+import junny.Ui.Ui;
 import junny.tasks.Task;
 
 

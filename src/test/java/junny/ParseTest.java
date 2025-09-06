@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import junny.Ui.Ui;
+import junny.command.Command;
+import junny.command.TodoCommand;
+import junny.command.DeadlineCommand;
+
 // test on parsing todo, deadline, event
 // test on mark, unmark, delete
 class ParserTest {

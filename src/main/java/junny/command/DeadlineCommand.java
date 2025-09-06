@@ -3,7 +3,7 @@ package junny.command;
 import java.util.ArrayList;
 
 import junny.Storage;
-import junny.Ui;
+import junny.Ui.Ui;
 import junny.tasks.Deadline;
 import junny.tasks.Task;
 

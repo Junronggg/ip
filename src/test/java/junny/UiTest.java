@@ -9,6 +9,10 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import junny.Ui.Ui;
+import junny.tasks.Task;
+import junny.tasks.Todo;
+import junny.tasks.Deadline;
 public class UiTest {
 
     // check greeting output

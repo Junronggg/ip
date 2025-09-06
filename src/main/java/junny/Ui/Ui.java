@@ -1,4 +1,4 @@
-package junny;
+package junny.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,12 +14,17 @@ import junny.tasks.Task;
  */
 public class Ui {
     private Scanner scanner;
+    private String currentOutput;
 
     /**
      * Creates a Ui object with an input scanner.
      */
     public Ui() {
         scanner = new Scanner(System.in);
+    }
+
+    public String currectMsg() {
+        return currentOutput;
     }
 
     /**
@@ -37,72 +42,82 @@ public class Ui {
 
     public void printHi() {
         printLine();
-        System.out.println(" Hello! I'm Junny");
-        System.out.println(" What can I do for you?");
-        System.out.println("todo: todo x; deadline: deadline y /by yyyy-mm-dd; "
-                + "event: event x /from yyyy-mm-dd /to yyyy-mm-dd");
+        currentOutput = "Hello! I'm Junny!\n"
+                + "What can I do for you?\n"
+                + "todo: todo x;\n deadline: deadline y /by yyyy-mm-dd;\n event: event x /from yyyy-mm-dd /to yyyy-mm-dd";
+        System.out.println(currentOutput);
         printLine();
     }
 
     public void printBye() {
-        System.out.println(" Bye. Hope to see you again soon!");
+        currentOutput = "Bye. Hope to see you again soon!";
+        System.out.println(currentOutput);
         printLine();
+
     }
 
     public void printError(String msg) {
+        currentOutput = "OOPS!!! " + msg;
         printLine();
-        System.out.println("OOPS!!!" + msg);
+        System.out.println(currentOutput);
         printLine();
+
     }
 
     public void printAllTasks(ArrayList<Task> tasks, int count) {
         printLine();
-        System.out.println("Here are the tasks in your list: ");
+        currentOutput = "Here are the tasks in your list: \n";
         for (int i = 0; i < count; i++) {
-            System.out.println(tasks.get(i).toString());
+            currentOutput += tasks.get(i).toString() + "\n";
         }
+        System.out.println(currentOutput);
         printLine();
+
     }
 
     public void addTask(Task task, int count) {
         printLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.printf("Now you have %d tasks in the list.\n", count);
+        currentOutput = "Got it. I've added this task: \n" + task.toString();
+        String line = String.format("Now you have %d tasks in the list.\n", count);
+        currentOutput += line;
+        System.out.println(currentOutput);
         printLine();
     }
 
     public void markDone(Task task) {
         printLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
+        currentOutput = "Nice! I've marked this task as done:\n" + task.toString();
+        System.out.println(currentOutput);
         printLine();
     }
 
     public void markUndone(Task task) {
         printLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
+        currentOutput = "OK, I've marked this task as not done yet:\n" + task.toString();
+        System.out.println(currentOutput);
         printLine();
     }
 
     public void deleteTask(Task task, int count) {
         printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.printf("Now you have %d tasks in the list.\n", count);
+        String line = String.format("Now you have %d tasks in the list.\n", count);
+        currentOutput = "Noted. I've removed this task:"
+                + task.toString()
+                + line;
+        System.out.println(currentOutput);
         printLine();
     }
 
     public void printTaskOnDate(LocalDate date, ArrayList<Task> tasks) {
         printLine();
-        System.out.println("Here are the tasks in your list on the day: ");
+        currentOutput = "Here are the tasks in your list on the day: \n";
         boolean hasTask = false;
         for (Task t : tasks) {
             if (t instanceof Deadline) {
                 if (((Deadline) t).getBy().equals(date)) {
                     System.out.println(t);
                     hasTask = true;
+                    currentOutput += t + "\n";
                 }
             } else if (t instanceof Event) {
                 LocalDate from = ((Event) t).getStart();
@@ -110,26 +125,31 @@ public class Ui {
                 if (!date.isBefore(from) && !date.isAfter(to)) {
                     System.out.println(t);
                     hasTask = true;
+                    currentOutput += t + "\n";
                 }
             }
         }
         if (!hasTask) {
-            System.out.println("No tasks on this date.");
+            currentOutput += "No tasks on this date.";
         }
+        System.out.println(currentOutput);
         printLine();
     }
 
     public void findResults(ArrayList<Task> tasksToPrint) {
         if (tasksToPrint.isEmpty()) {
             printLine();
-            System.out.println("There is no matching task :(");
+            currentOutput = "There is no matching task :(";
+            System.out.println(currentOutput);
             printLine();
         } else {
             printLine();
-            System.out.println("Here are the matching tasks in your list:");
+            currentOutput = "Here are the matching tasks in your list: \n";
             for (int i = 0; i < tasksToPrint.size(); i++) {
+                currentOutput += tasksToPrint.get(i).toString() + "\n";
                 System.out.println((i + 1) + "." + tasksToPrint.get(i).toString());
             }
+            System.out.println(currentOutput);
             printLine();
         }
     }
