@@ -44,7 +44,7 @@ public class Ui {
         printLine();
         currentOutput = "Hello! I'm Junny!\n"
                 + "What can I do for you?\n"
-                + "todo: todo x;\n deadline: deadline y /by yyyy-mm-dd;\n event: event x /from yyyy-mm-dd /to yyyy-mm-dd";
+                + "todo: todo x;\ndeadline: deadline y /by yyyy-mm-dd;\nevent: event x /from yyyy-mm-dd /to yyyy-mm-dd";
         System.out.println(currentOutput);
         printLine();
     }

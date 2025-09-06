@@ -2,6 +2,7 @@ package junny.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import junny.TaskTypes;
 
@@ -15,7 +16,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
         return "[D]" + super.toString() + " (by: " + by.format(outputFormat) + ")";
     }
 
