@@ -23,8 +23,8 @@ public class Junny {
         if (command == null) {
             return "I don't understand that command.";
         }
-        command.run(tasks, ui, storage);  // run the command
-        return ui.currectMsg();       // return the latest message for GUI
+        command.run(tasks, ui, storage); // run the command
+        return ui.currectMsg(); // return the latest message for GUI
     }
 
     public Ui getUi() {
