@@ -3,6 +3,8 @@ package junny.Ui;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import junny.tasks.Deadline;
 import junny.tasks.Event;
@@ -66,10 +68,17 @@ public class Ui {
 
     public void printAllTasks(ArrayList<Task> tasks, int count) {
         printLine();
+        /*
         currentOutput = "Here are the tasks in your list: \n";
         for (int i = 0; i < count; i++) {
             currentOutput += tasks.get(i).toString() + "\n";
         }
+        */
+        currentOutput = "Here are the tasks in your list: \n"
+                + tasks.stream()
+                        .limit(count)
+                                .map(Task::toString)
+                                        .collect(Collectors.joining("\n", "", "\n"));
         System.out.println(currentOutput);
         printLine();
 
@@ -138,20 +147,18 @@ public class Ui {
     }
 
     public void findResults(ArrayList<Task> tasksToPrint) {
+        printLine();
         if (tasksToPrint.isEmpty()) {
-            printLine();
             currentOutput = "There is no matching task :(";
             System.out.println(currentOutput);
-            printLine();
         } else {
-            printLine();
-            currentOutput = "Here are the matching tasks in your list: \n";
-            for (int i = 0; i < tasksToPrint.size(); i++) {
-                currentOutput += tasksToPrint.get(i).toString() + "\n";
-                System.out.println((i + 1) + "." + tasksToPrint.get(i).toString());
-            }
+            currentOutput = "Here are the matching tasks in your list: \n"
+                    + IntStream.range(0, tasksToPrint.size())
+                    .mapToObj(i -> (i + 1) + ". " + tasksToPrint.get(i))
+                    .peek(System.out::println) // prints each line
+                    .collect(Collectors.joining("\n", "", "\n"));
             System.out.println(currentOutput);
-            printLine();
         }
+        printLine();
     }
 }
