@@ -54,64 +54,72 @@ public class Parser {
         case BYE:
             return new ByeCommand();
         case LIST:
-            if (commandDetail.startsWith("/on")) {
-                try {
-                    String dateStr = inputByParts[1].substring(4).trim(); // get the date string, which is 4th position
-                    LocalDate targetDate = LocalDate.parse(dateStr); // yyyy-MM-dd
-                    return new ListOnDateCommand(targetDate);
-                } catch (Exception e) {
-                    ui.printError("Please enter the date in yyyy-MM-dd format.");
-                }
-            } else {
-                return new ListCommand();
-            }
+            return parseList(commandDetail);
         case MARK:
             return new MarkCommand(Integer.valueOf(commandDetail));
         case UNMARK:
             return new UnmarkCommand(Integer.valueOf(commandDetail));
         case DELETE:
             return new DeleteCommand(Integer.valueOf(commandDetail));
-
         case DEADLINE:
-            // split to "read book" & "Sunday"
-            String[] parts = commandDetail.split("/by", 2);
-            // throw exception 5
-            if (parts.length < 2) {
-                throw new IllegalArgumentException("deadline task must have a due time. "
-                        + "Please follow deadline read /by xx.");
-            }
-            String description = parts[0].trim(); // "read book"
-            String by = parts[1].trim(); // "Sunday
-            return new DeadlineCommand(description, by);
-
+            return parseDeadline(commandDetail);
         case EVENT:
-            // split to "read book" & "/from xxx" (split on from)
-            String[] parts1 = commandDetail.split("/from", 2);
-            // throw exception 6
-            if (parts1.length < 2) {
-                throw new IllegalArgumentException("event task must have a from time. "
-                        + "Please follow event read /from xx /to yy.");
-            }
-            String eventDescription = parts1[0].trim(); // "read book"
-            String fromTo = parts1[1].trim(); // "/from xxx /to xxx"
-            // split to "from" & "to"
-            String[] parts2 = fromTo.split("/to", 2);
-            if (parts2.length < 2) {
-                throw new IllegalArgumentException("event task must have a to time. "
-                        + "Please follow event read /from xx /to yy.");
-            }
-            String from = parts2[0].trim();
-            String to = parts2[1].trim();
-            return new EventCommand(eventDescription, from, to);
-
+            return parseEvent(commandDetail);
         case TODO:
             return new TodoCommand(commandDetail);
-
         case FIND:
             return new FindCommand(commandDetail);
         default:
             // handle exception 2
             throw new IllegalArgumentException("I'm sorry, but I don't know what that means :(");
         }
+    }
+
+    private Command parseList(String commandDetail) {
+        if (commandDetail.startsWith("/on")) {
+            try {
+                String dateStr = commandDetail.substring(3).trim(); // get the date string, which is 4th position
+                LocalDate targetDate = LocalDate.parse(dateStr); // yyyy-MM-dd
+                return new ListOnDateCommand(targetDate);
+            } catch (Exception e) {
+                ui.printError("Please enter the date in yyyy-MM-dd format.");
+            }
+        }
+        return new ListCommand();
+    }
+
+    private Command parseDeadline(String commandDetail) {
+        // split to "read book" & "Sunday"
+        String[] parts = commandDetail.split("/by", 2);
+        // throw exception 5
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("deadline task must have a due time. "
+                    + "Please follow deadline read /by xx.");
+        }
+        String description = parts[0].trim(); // "read book"
+        String by = parts[1].trim(); // "Sunday
+        assert !description.isEmpty() : "Deadline description should not be empty";
+        return new DeadlineCommand(description, by);
+    }
+
+    private Command parseEvent(String commandDetail) {
+        // split to "read book" & "/from xxx" (split on from)
+        String[] parts1 = commandDetail.split("/from", 2);
+        // throw exception 6
+        if (parts1.length < 2) {
+            throw new IllegalArgumentException("event task must have a from time. "
+                    + "Please follow event read /from xx /to yy.");
+        }
+        String eventDescription = parts1[0].trim(); // "read book"
+        String fromTo = parts1[1].trim(); // "/from xxx /to xxx"
+        // split to "from" & "to"
+        String[] parts2 = fromTo.split("/to", 2);
+        if (parts2.length < 2) {
+            throw new IllegalArgumentException("event task must have a to time. "
+                    + "Please follow event read /from xx /to yy.");
+        }
+        String from = parts2[0].trim();
+        String to = parts2[1].trim();
+        return new EventCommand(eventDescription, from, to);
     }
 }
