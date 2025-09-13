@@ -3,6 +3,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 repositories {
@@ -31,7 +32,7 @@ jar {
     // creates a normal JAR file.
     manifest {
         attributes(
-                'Main-Class': 'junny.Junny'  // your main class with main() method
+                'Main-Class': 'junny.Ui.Launcher'  // your main class with main() method
         )
     }
     from {

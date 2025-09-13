@@ -20,9 +20,10 @@ public class Junny {
     /** For GUI: takes user input, returns response string */
     public String getResponse(String input) {
         Command command = parser.parse(input);
-        if (command == null) {
+        /*if (command == null) {
             return "I don't understand that command.";
-        }
+        }*/
+        assert command != null : "Sorry but I don't understand that command :(";
         command.run(tasks, ui, storage); // run the command
         return ui.currectMsg(); // return the latest message for GUI
     }
