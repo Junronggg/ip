@@ -77,7 +77,7 @@ public class Ui {
 
     public void addTask(Task task, int count) {
         printLine();
-        currentOutput = "Got it. I've added this task: \n" + task.toString();
+        currentOutput = "Got it. I've added this task: \n" + task.toString() + "\n";
         String line = String.format("Now you have %d tasks in the list.\n", count);
         currentOutput += line;
         System.out.println(currentOutput);
@@ -86,14 +86,14 @@ public class Ui {
 
     public void markDone(Task task) {
         printLine();
-        currentOutput = "Nice! I've marked this task as done:\n" + task.toString();
+        currentOutput = "Nice! I've marked this task as done:\n" + task.toString() + "\n";
         System.out.println(currentOutput);
         printLine();
     }
 
     public void markUndone(Task task) {
         printLine();
-        currentOutput = "OK, I've marked this task as not done yet:\n" + task.toString();
+        currentOutput = "OK, I've marked this task as not done yet:\n" + task.toString() + "\n";
         System.out.println(currentOutput);
         printLine();
     }
@@ -103,6 +103,7 @@ public class Ui {
         String line = String.format("Now you have %d tasks in the list.\n", count);
         currentOutput = "Noted. I've removed this task:"
                 + task.toString()
+                + "\n"
                 + line;
         System.out.println(currentOutput);
         printLine();
