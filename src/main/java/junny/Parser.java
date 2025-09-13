@@ -33,6 +33,7 @@ public class Parser {
      * @return A Command object representing the parsed instruction
      */
     public Command parse(String userCommand) {
+        assert userCommand != null : "Input to parser should not be null";
         String[] inputByParts = userCommand.split(" ", 2);
         String commandWord = inputByParts[0].toUpperCase();
         String commandDetail = inputByParts.length > 1 ? inputByParts[1] : "";
