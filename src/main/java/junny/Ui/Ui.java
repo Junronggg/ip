@@ -2,6 +2,7 @@ package junny.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -159,6 +160,20 @@ public class Ui {
                     .collect(Collectors.joining("\n", "", "\n"));
             System.out.println(currentOutput);
         }
+        printLine();
+    }
+
+    public void printSorted(ArrayList<Task> tasks) {
+        printLine();
+        // Sort only deadlines chronologically
+        currentOutput = "Deadlines sorted chronologically:\n"
+                + tasks.stream()
+                .filter(t -> t instanceof Deadline)
+                .map(t -> (Deadline) t)
+                .sorted(Comparator.comparing(Deadline::getBy))
+                .map(Deadline::toString)
+                .collect(Collectors.joining("\n"));
+        System.out.println(currentOutput);
         printLine();
     }
 }

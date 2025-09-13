@@ -12,6 +12,7 @@ import junny.command.FindCommand;
 import junny.command.ListCommand;
 import junny.command.ListOnDateCommand;
 import junny.command.MarkCommand;
+import junny.command.SortCommand;
 import junny.command.TodoCommand;
 import junny.command.UnmarkCommand;
 
@@ -69,10 +70,14 @@ public class Parser {
             return new TodoCommand(commandDetail);
         case FIND:
             return new FindCommand(commandDetail);
+        case SORT:
+            return new SortCommand();
         default:
             // handle exception 2
-            throw new IllegalArgumentException("I'm sorry, but I don't know what that means :(");
+            ui.printError("I'm sorry, but I don't know what that means :(");
+            return null;
         }
+
     }
 
     private Command parseList(String commandDetail) {
