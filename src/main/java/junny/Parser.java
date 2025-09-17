@@ -1,6 +1,8 @@
 package junny;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import junny.Ui.Ui;
 import junny.command.ByeCommand;
@@ -67,7 +69,7 @@ public class Parser {
         case EVENT:
             return parseEvent(commandDetail);
         case TODO:
-            return new TodoCommand(commandDetail);
+            return parseTodo(commandDetail);
         case FIND:
             return new FindCommand(commandDetail);
         case SORT:
@@ -78,6 +80,24 @@ public class Parser {
             return null;
         }
 
+    }
+
+    private Command parseTodo(String commandDetail) {
+        try {
+            String description = commandDetail.substring(4).trim();
+            if (description.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "The description of a todo cannot be empty. Please follow: todo <task description>"
+            );
+        }
+        return new TodoCommand(description);
+        } catch (StringIndexOutOfBoundsException e) {
+            // happens if commandDetail is shorter than 4 chars (e.g. just "todo")
+            throw new IllegalArgumentException(
+                    "The description of a todo cannot be empty.\n" +
+                            "Please follow: todo <task description>"
+            );
+        }
     }
 
     private Command parseList(String commandDetail) {
@@ -99,10 +119,15 @@ public class Parser {
         // throw exception 5
         if (parts.length < 2) {
             throw new IllegalArgumentException("deadline task must have a due time. "
-                    + "Please follow deadline read /by xx.");
+                    + "Please follow deadline read /by yyyy-mm-dd.");
         }
         String description = parts[0].trim(); // "read book"
-        String by = parts[1].trim(); // "Sunday
+        String by = parts[1].trim(); // 2025-08-20
+        if (!isValidDate(by)) {
+            throw new IllegalArgumentException(
+                    "Invalid date format: \"" + by + "\". Please use yyyy-mm-dd, e.g., 2025-09-20"
+            );
+        }
         assert !description.isEmpty() : "Deadline description should not be empty";
         return new DeadlineCommand(description, by);
     }
@@ -113,7 +138,7 @@ public class Parser {
         // throw exception 6
         if (parts1.length < 2) {
             throw new IllegalArgumentException("event task must have a from time. "
-                    + "Please follow event read /from xx /to yy.");
+                    + "Please follow event read /from yyyy-mm-dd /to yyyy-mm-dd.");
         }
         String eventDescription = parts1[0].trim(); // "read book"
         String fromTo = parts1[1].trim(); // "/from xxx /to xxx"
@@ -121,10 +146,24 @@ public class Parser {
         String[] parts2 = fromTo.split("/to", 2);
         if (parts2.length < 2) {
             throw new IllegalArgumentException("event task must have a to time. "
-                    + "Please follow event read /from xx /to yy.");
+                    + "Please follow event read /from yyyy-mm-dd /to yyyy-mm-dd.");
         }
         String from = parts2[0].trim();
         String to = parts2[1].trim();
+        if (!isValidDate(from) || !isValidDate(to)) {
+            throw new IllegalArgumentException(
+                    "Invalid date format." + " Please use yyyy-mm-dd, e.g., 2025-09-20"
+            );
+        }
         return new EventCommand(eventDescription, from, to);
+    }
+
+    private boolean isValidDate(String dateStr) {
+        try {
+            LocalDate.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }

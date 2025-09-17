@@ -47,7 +47,14 @@ public class Ui {
         printLine();
         currentOutput = "Hello! I'm Junny!\n"
                 + "What can I do for you?\n"
-                + "todo: todo x;\ndeadline: deadline y /by yyyy-mm-dd;\nevent: event x /from yyyy-mm-dd /to yyyy-mm-dd";
+                +"\n"
+                + "Here are the commands available:\n"
+                + "1. todo: todo x;\n"
+                + "2. deadline: deadline y /by yyyy-mm-dd;\n"
+                + "3. event: event x /from yyyy-mm-dd /to yyyy-mm-dd;\n"
+                + "4. mark: mark n;\n5. unmark: unmark n;\n6. delete: delete n\n"
+                + "7. list: list;\n8. task on a specific date: list /on yyyy-mm-dd;\n"
+                + "9. find: find xxx;\n10. sort deadline events in chronological order: sort.";
         System.out.println(currentOutput);
         printLine();
     }

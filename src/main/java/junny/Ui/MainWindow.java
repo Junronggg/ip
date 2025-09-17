@@ -52,10 +52,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = junny.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJunnyDialog(response, dukeImage)
-        );
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+        if (!junny.getLastResponseState()) {
+            dialogContainer.getChildren().add(DialogBox.getErrorDialog(response, dukeImage));
+        } else {
+            dialogContainer.getChildren().add(DialogBox.getJunnyDialog(response, dukeImage));
+        }
         userInput.clear();
     }
 }

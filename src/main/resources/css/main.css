@@ -10,7 +10,7 @@
 
 .button {
     -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+    -fx-font: italic bold 20px "Arial";
 }
 
 .button:hover {

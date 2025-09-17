@@ -16,16 +16,35 @@ public class Junny {
     private static Storage storage = new Storage("./data/Junny.txt");
     private static ArrayList<Task> tasks = storage.loadAllTasks();
     private static Parser parser = new Parser(ui);
+    private boolean lastResponseFalse = false;
 
+    public boolean getLastResponseState() {
+        return !lastResponseFalse;  // true if no error
+    }
     /** For GUI: takes user input, returns response string */
     public String getResponse(String input) {
-        Command command = parser.parse(input);
-        /*if (command == null) {
-            return "I don't understand that command.";
-        }*/
+        Command command;
+        try {
+            command = parser.parse(input); // parsing may throw IllegalArgumentException
+            lastResponseFalse = false;
+        } catch (IllegalArgumentException e) {
+            lastResponseFalse = true;
+            return e.getMessage(); // return a friendly message to GUI
+        }
         assert command != null : "Sorry but I don't understand that command :(";
-        command.run(tasks, ui, storage); // run the command
-        return ui.currectMsg(); // return the latest message for GUI
+        if (command == null) { // input was invalid
+            lastResponseFalse = true;
+            return "OOPS!!! I'm sorry, but I don't know what that means :(";
+        }
+
+        try {
+            command.run(tasks, ui, storage); // run the command
+            return ui.currectMsg(); // return the latest message for GUI
+        } catch (IllegalArgumentException e) {
+            lastResponseFalse = true;
+            return e.getMessage();
+        }
+
     }
 
     public Ui getUi() {
