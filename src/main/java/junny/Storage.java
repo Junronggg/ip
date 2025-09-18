@@ -35,7 +35,8 @@ public class Storage {
                 Files.createFile(this.filePath);
             }
         } catch (IOException e) {
-            System.out.println("Error initializing storage: " + e.getMessage());
+            // System.out.println("Error initializing storage: " + e.getMessage());
+            throw new IllegalStateException("Error initializing storage: " + e.getMessage(), e);
         }
     }
 

@@ -84,7 +84,7 @@ public class Parser {
 
     private Command parseTodo(String commandDetail) {
         try {
-            String description = commandDetail.substring(4).trim();
+            String description = commandDetail.trim();
             if (description.isEmpty()) {
             throw new IllegalArgumentException(
                     "The description of a todo cannot be empty. Please follow: todo <task description>"
@@ -103,7 +103,7 @@ public class Parser {
     private Command parseList(String commandDetail) {
         if (commandDetail.startsWith("/on")) {
             try {
-                String dateStr = commandDetail.substring(3).trim(); // get the date string, which is 4th position
+                String dateStr = commandDetail.trim(); // get the date string, which is 4th position
                 LocalDate targetDate = LocalDate.parse(dateStr); // yyyy-MM-dd
                 return new ListOnDateCommand(targetDate);
             } catch (Exception e) {
