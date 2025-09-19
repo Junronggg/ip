@@ -14,9 +14,9 @@ Welcome to Junny, your personal chatbot assistant!
 
 ## Features
 - **Add tasks**
-- `todo read book`
-- `deadline submit report /by 2025-10-01`
-- `event project meeting /from 2025-10-01 /to 2025-10-02`
+ `todo read book`
+ `deadline submit report /by 2025-10-01`
+ `event project meeting /from 2025-10-01 /to 2025-10-02`
 
 - **List tasks**
 - `list`
