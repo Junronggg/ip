@@ -18,10 +18,25 @@ public class Junny {
     private static Parser parser = new Parser(ui);
     private boolean lastResponseFalse = false;
 
+    /**
+     * Returns the success state of the last processed command.
+     *
+     * @return true if the last command was valid and executed successfully,
+     *         false if the last command caused an error.
+     */
     public boolean getLastResponseState() {
         return !lastResponseFalse;  // true if no error
     }
-    /** For GUI: takes user input, returns response string */
+
+    /**
+     * Processes a single user input and returns Junny's response.
+     * <p>
+     * Used by the GUI layer to display feedback.
+     *
+     * @param input The raw user command string.
+     * @return A response message from Junny after executing the command,
+     *         or an error message if the command was invalid.
+     */
     public String getResponse(String input) {
         Command command;
         try {
@@ -47,10 +62,23 @@ public class Junny {
 
     }
 
+    /**
+     * Returns the {@link Ui} instance used by Junny.
+     *
+     * @return The {@code Ui} object for displaying messages and reading commands.
+     */
     public Ui getUi() {
         return ui;
     }
 
+    /**
+     * Runs the CLI version of Junny.
+     * <p>
+     * Continuously reads commands from the user, parses them,
+     * executes them, and prints the result until an exit command is issued.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         ui.printHi();
         Parser parser = new Parser(ui);

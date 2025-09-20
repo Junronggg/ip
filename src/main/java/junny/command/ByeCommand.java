@@ -10,10 +10,19 @@ import junny.Ui.Ui;
 import junny.tasks.Task;
 
 
-/***
- * ByeCommand class to break the loop and exit the programme
+/**
+ * Represents a command that exits the program.
+ * Prints a goodbye message and closes the application after a short delay.
  */
 public class ByeCommand extends Command {
+    /**
+     * Executes the bye command by printing a farewell message
+     * and scheduling the program to exit after 3 seconds.
+     *
+     * @param tasks   the current list of tasks
+     * @param ui      the UI handler to display messages
+     * @param storage the storage handler to save/load tasks
+     */
     @Override
     public void run(ArrayList<Task> tasks, Ui ui, Storage storage) {
         ui.printBye();
@@ -24,6 +33,11 @@ public class ByeCommand extends Command {
         delay.play();
     }
 
+    /**
+     * Indicates that this command will exit the program.
+     *
+     * @return true, since the bye command ends the program
+     */
     @Override
     public boolean isExit() {
         return true; // program should stop
